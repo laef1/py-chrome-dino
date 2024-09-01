@@ -89,7 +89,7 @@ def spawn_obstacle():
 
 def spawn_new_generation_obstacle():
     obstacle_x = screen_width
-    obstacle_y = GROUND_LEVEL - OBSTACLE_HEIGHT - 102.5  # Move blue obstacle higher
+    obstacle_y = GROUND_LEVEL - OBSTACLE_HEIGHT - 102.5 
     new_generation_objects.append({"x": obstacle_x, "y": obstacle_y})
 
 
