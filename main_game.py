@@ -3,19 +3,19 @@ import random
 
 pygame.init()
 
-# Set up the game window
+
 screen_width = 800
 screen_height = 400
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("Chrome Dino Game")
 
-# Set up the block
+
 block_width = 30
 block_height = 55
 block_x = 100
 block_y = screen_height - block_height - 10
 
-# Constants
+
 JUMP_HEIGHT = 15
 GRAVITY = 1.5
 TERMINAL_VELOCITY = 20
@@ -35,10 +35,10 @@ jumped = False
 ducked = False
 score = 0
 
-# Red objects (obstacles)
+
 red_objects = []
 
-# Game loop
+
 running = True
 clock = pygame.time.Clock()
 
@@ -81,13 +81,13 @@ while running:
                 reset_game()
 
     if HP > 0:
-        # Update game logic
+       
         if is_jumping or block_y < GROUND_LEVEL - block_height:
             block_y += vertical_velocity
             vertical_velocity += GRAVITY
             if vertical_velocity > TERMINAL_VELOCITY:
                 vertical_velocity = TERMINAL_VELOCITY
-            if block_y > GROUND_LEVEL - block_height:  # Prevent falling below ground
+            if block_y > GROUND_LEVEL - block_height:  
                 block_y = GROUND_LEVEL - block_height
                 vertical_velocity = 0
                 is_jumping = False
@@ -120,7 +120,7 @@ while running:
                 new_obstacle = pygame.Rect(screen_width, GROUND_LEVEL - OBSTACLE_HEIGHT, OBSTACLE_WIDTH, OBSTACLE_HEIGHT)
                 red_objects.append(new_obstacle)
 
-        # Check for collisions with red objects
+        
         block_rect = pygame.Rect(block_x, block_y, block_width, block_height)
         for obj in red_objects:
             if block_rect.colliderect(obj):
@@ -129,44 +129,44 @@ while running:
                 if HP <= 0:
                     break
 
-    # Clear screen
+    
     screen.fill((255, 255, 255))  # Fill the screen with white
 
-    # Draw ground
+    
     pygame.draw.line(screen, (0, 0, 0), (0, GROUND_LEVEL), (screen_width, GROUND_LEVEL), 2)
 
-    # Draw red objects (obstacles)
+    
     for obj in red_objects:
         pygame.draw.rect(screen, (255, 0, 0), obj)
 
-    # Draw block (character)
+    
     pygame.draw.rect(screen, (0, 0, 255), (block_x, block_y, block_width, block_height))
 
-    # Draw score
+    
     font = pygame.font.Font(None, 36)
     score_text = font.render(f"Score: {score}", True, (0, 0, 0))
     screen.blit(score_text, (10, 10))
 
-    # Draw health
+    
     health_text = font.render(f"Health: {HP}", True, (0, 0, 0))
     screen.blit(health_text, (10, 50))
 
     if HP <= 0:
-        # Draw Game Over text
+        
         game_over_text = font.render("Game Over", True, (255, 0, 0))
         screen.blit(game_over_text, (screen_width // 2 - 80, screen_height // 2 - 50))
 
-        # Draw Start Over button
+        
         start_button = pygame.Rect(screen_width // 2 - 50, screen_height // 2, 100, 50)
         pygame.draw.rect(screen, (0, 255, 0), start_button)
         start_text = font.render("Start Over", True, (0, 0, 0))
         screen.blit(start_text, (screen_width // 2 - 45, screen_height // 2 + 10))
 
-    # Update the display
+    
     pygame.display.flip()
 
-    # Cap the frame rate
+    
     clock.tick(30)
 
-# Quit the game
+
 pygame.quit()
